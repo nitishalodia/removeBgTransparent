@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>PDF Document Reader</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<section class="wrapper">
+<h2 class="h2 mt-0 text-center jumbo">Image Upload and Save</h2>
+<div class="container-fluid mt-5">
+<div class="row m-0">
+<div class="col-sm-6 col-md-6">
+<form method="post" enctype="multipart/form-data">
+
+  <!--<label class="file">-->
+  <p><input type="file" id="imgInp" name="file" id="file"  onchange="loadFile(event)" ></p>
+
+  <!--  <input type="file" id="imgInp" name="file_source" aria-label="File browser example">-->
+  <!--<span class="file-custom"></span>-->
+<!--</label>-->
+
+  <!-- <input type="file" id="imgInp" class="input-btn" name="file_source" size="40">-->
+  <!-- <img src="{{ user_image }}" id="img-upload" alt="User Image" class="img-upload"/>    -->
+   <p><input type=submit value=Upload></p>
+	 
+</form>
+	<img id="output" width="200" />
+	{% if upload_result %}
+<!--	<a class="label label-primary" href=/download target="_blank"  style="margin-right: 5px;">Download modified image </a>-->
+<!--	<h2>{{ output_image }}"</h2>-->
+	<a href="{{ url_for('download', filename='cleaned-image.png') }}">Download modified image</a>
+	{% endif %}
+
+
+	<!--	<form>-->
+<!--		<a href=# id=test><button class='btn btn-default'>Test</button></a>-->
+<!--	</form>-->
+<!--	{% for name in image_names %}-->
+<!--	<img src="{{ url_for('static', filename=name) }}" >-->
+<!--	{% endfor %}-->
+
+<!--	<img src="{{ url_for('static', filename="car-removed.png") }}" >-->
+
+<!--	<img id="output" width="200" />-->
+<!--	{% if upload_result %}-->
+<!--	<h1>In upload </h1>-->
+<!--    <h2>{{ output_path }}"</h2>-->
+
+<!--	<img src="../car-removed.png" alt="No Image!"/>-->
+<!--	{% endif %}-->
+</div>
+
+</div>
+</div>
+
+	<script>
+    var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+	console.log(image.src)
+};
+</script>
+
+ <!--<div class="container-fluid">
+<div class="row m-0">
+<div class="col-sm-6 col-md-6">
+  <button class="btn btn-primary upload-btn mt-4" type="submit" id="process" onclick="myFunction()">Upload</button>
+</div>
+
+<div class="col-sm-6 col-md-6">
+  <button class="btn btn-primary gray-btn float-right" onclick="javascript:window.close()">Exit</button>
+</div>-->
+
+
+</section>
+
+<script type="text/javascript">
+
+$('input[type=file]').change(function () {
+console.log("file changed event");
+var filePath = $(this).val();
+console.log("filepath---->"+filePath);
+//alert($('input[type=file]').val());
+});
+
+$(document).ready( function() {
+    	
+		function readURL(input) {
+			 
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#imgInp").change(function(){
+			
+
+		 readURL(this);
+		 
+		}); 
+	});
+
+
+</script>
+
+</body>
+</html> 
+
+
