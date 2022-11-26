@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+from rembg import remove
+from PIL import Image
 app = Flask(__name__)
 
 
@@ -25,6 +27,26 @@ def respond():
     return jsonify(response)
 
 
+@app.route('/removeBg/', methods=['GET'])
+def removeBg():
+    # Retrieve the name from the url parameter /getmsg/?name=
+    input_path = request.args.get("inputImage", None)
+
+    output_path = 'car-removedPython2.png'
+
+    input = Image.open(input_path)
+    output = remove(input)
+    output.save(output_path)
+
+    # For debugging
+    print(f"Received: {input_path}")
+
+    response = {}
+
+    # Return the response in json format
+    return jsonify(response)
+
+
 @app.route('/post/', methods=['POST'])
 def post_something():
     param = request.form.get('name')
@@ -44,7 +66,7 @@ def post_something():
 
 @app.route('/')
 def index():
-    # A welcome message to test our server
+   # A welcome message to test our server
     return "<h1>Welcome to our medium-greeting-api!</h1>"
 
 
