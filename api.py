@@ -11,6 +11,8 @@ import cloudinary
 from cloudinary.uploader import upload
 import cloudinary.api
 from cloudinary.utils import cloudinary_url
+from waitress import serve
+
 
 
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -29,6 +31,10 @@ cloudinary.config(
     api_secret = "iDkNvcjW8RXBSJNIuoWf5YMiKv0",
     secure = True
 )
+#https://381722484831413:iDkNvcjW8RXBSJNIuoWf5YMiKv0@api.cloudinary.com/v1_1/db5g1vegd/ping
+
+
+
 
 
 def allowed_file(filename):
@@ -163,12 +169,13 @@ def process_image():
         img_removedBg.save(removedbg_path)     #output image filename
 
 
-
         outPut_rembg_image_url = upload_cloudinary(output_image_name)
         print(filename)
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'],filename))
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'],removedbg_path))
         upload_result = True
+
+        print(upload_result.to)
     return jsonify({'msg': 'success', 'input_url': img_url ,'output_url': outPut_rembg_image_url})
 
 
@@ -252,3 +259,4 @@ def upload_cloudinary(filename):
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
     app.run(threaded=True, port=8000)
+    #serve(app, host='0.0.0.0', port=80)
