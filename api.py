@@ -231,12 +231,9 @@ def index():
     #     filename2 = result[-1:]
     #     filename1 = " ".join(filename2)
 
-    # return render_template('index.html',
-    #                        filename = img_url,
-    #                        upload_result= upload_result,
-    #                        output_image = output_image,
-    #                        bright_image = img_brighten)
-    response = "Welcome to background removal api"
+    return render_template('index.html')
+
+    #response = "Welcome to background removal api"
     return jsonify(response)
 
 
